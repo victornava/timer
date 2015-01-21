@@ -1,4 +1,15 @@
+`
+  █████   ██           █████████  ███████  
+ ██   ██  ██    ██     ██        ██     ██ 
+██     ██ ██    ██  ██ ██        ██     ██ 
+██     ██ ██    ██     ████████   ███████  
+██     ██ █████████ ██        ██ ██     ██ 
+ ██   ██        ██     ██     ██ ██     ██ 
+  █████         ██      ███████   ███████  
+`
+
 # Timer
+
 
 Is a simple and inaccurate timer for you to time unimportant events from the command line.
 

@@ -1,0 +1,165 @@
+#!/usr/bin/env ruby
+
+@n = {}
+@n["0"] = "  
+  █████   
+ ██   ██  
+██     ██ 
+██     ██ 
+██     ██ 
+ ██   ██  
+  █████   
+"  
+
+@n["1"] = "
+    ██    
+  ████    
+    ██    
+    ██    
+    ██    
+    ██    
+  ██████  
+"
+
+@n["2"] = "  
+ ███████  
+██     ██ 
+       ██ 
+ ███████  
+██        
+██        
+█████████ 
+"
+
+@n["3"] = "  
+ ███████  
+██     ██ 
+       ██ 
+ ███████  
+       ██ 
+██     ██ 
+ ███████  
+"
+
+@n["4"] = "  
+██        
+██    ██  
+██    ██  
+██    ██  
+█████████ 
+      ██  
+      ██  
+"
+
+@n["5"] = " 
+█████████ 
+██        
+██        
+████████  
+       ██ 
+██     ██ 
+ ███████  
+"
+
+@n["6"] = "  
+ ███████  
+██     ██ 
+██        
+████████  
+██     ██ 
+██     ██ 
+ ███████  
+"
+
+@n["7"] = " 
+█████████ 
+██     ██ 
+     ██   
+    ██    
+   ██     
+   ██     
+   ██     
+"
+
+@n["8"] = "  
+ ███████  
+██     ██ 
+██     ██ 
+ ███████  
+██     ██ 
+██     ██ 
+ ███████  
+"
+
+@n["9"] = "  
+ ███████  
+██     ██ 
+██     ██ 
+ ████████ 
+       ██ 
+██     ██ 
+ ███████  
+"
+
+@n[":"] = "
+   
+   
+██ 
+   
+██ 
+   
+   
+" 
+
+def banner(str)
+  chars = str.split("")
+  char_lines = []
+  chars.size.times do |i|
+    char_lines << @n[chars[i]].split("\n")
+  end
+  char_height = char_lines[0].size
+  
+  str = ""
+  char_height.times do |line|
+    chars.size.times do |char|
+      str << char_lines[char][line]
+    end
+    str << "\n"
+  end
+  str
+end
+
+def beep(n)
+  n.times do
+    system('afplay /System/Library/Sounds/Glass.aiff')
+  end
+end
+
+def go(mins)
+  print "\e[8;9;45t"
+  clock = ""
+  (mins-1).downto(0) do |min|
+    59.downto(0) do |sec|
+      mins = min < 10 ? "#{0}#{min}" : "#{min}"
+      secs = sec < 10 ? "#{0}#{sec}" : "#{sec}"
+      clock = banner "#{mins}:#{secs}"
+      puts clock
+      sleep(1) # This is not very accurate :P
+      height = clock.split("\n").size
+      print "\033[#{height}F" #move cursor up
+      print "\033[J" #clear screen below cursor
+    end
+  end
+  puts clock
+  beep(4)
+end
+
+mins = ARGV[0].to_i
+
+if mins < 1
+  puts "Simple and inaccurate timer"
+  puts "Usage: timer <minutes>"
+  exit 0
+else
+  go mins
+end
